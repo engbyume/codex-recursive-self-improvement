@@ -22,6 +22,8 @@ skill loader at this repository.
 
 ## Design principles
 
+- Mandatory post-action use: invoke the skill after every task and every material
+  action, with a minimal `not promoted` result when no lesson exists.
 - Evidence before explanation.
 - Current user corrections and live sources outrank stale memory.
 - Knowledge, capability, authority, and observed evidence stay separate.

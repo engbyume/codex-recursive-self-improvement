@@ -30,6 +30,12 @@
       "prompt": "What is recursive self-improvement in machine learning? Give a general explanation without changing a skill, workspace file, or durable memory.",
       "expected_output": "Answers the conceptual question without invoking a workflow that changes files or promotes learning.",
       "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "A routine task completed successfully and produced no correction, surprising evidence, or reusable pattern. Show the mandatory post-action behavior.",
+      "expected_output": "Invokes the gate, reports not promoted and no reusable learning found, and does not create a durable record.",
+      "files": []
     }
   ]
 }

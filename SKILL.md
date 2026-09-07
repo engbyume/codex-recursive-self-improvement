@@ -1,13 +1,14 @@
 ---
 name: codex-recursive-self-improvement
 description: >-
-  Use whenever a ChatGPT model or Codex agent makes a mistake, receives a user
-  correction, fails a check, relies on stale context, confuses a draft with a
-  completed external action, or finishes a non-trivial task that should produce
-  reusable learning. Turn observed failures into small, evidence-backed,
-  user-approved improvements to prompts, skills, checks, memory, or runbooks.
-  Use this skill even when the user does not say self-improvement or reflection.
-  Do not claim model-weight changes or autonomous system-prompt rewriting.
+  Mandatory post-action learning gate for every ChatGPT model or Codex agent
+  using this skill. Run it after every completed task and after every material
+  action, correction, tool-driven turn, or result that could teach the agent
+  something. Turn observed mistakes and reusable patterns into small,
+  evidence-backed, user-approved improvements to prompts, skills, checks,
+  memory, or runbooks. Use it even when the user does not say self-improvement
+  or reflection. Do not claim model-weight changes or autonomous system-prompt
+  rewriting.
 compatibility: Designed for ChatGPT models running in the Codex harness. Requires access to the task transcript, applicable workspace instructions, and a user-approved location before persisting durable learning.
 ---
 
@@ -20,6 +21,35 @@ tool permissions, or account limits.
 
 The goal is simple: turn a verified mistake into a small guard that prevents the
 same class of mistake next time, then test that the guard works.
+
+## Mandatory post-action gate
+
+When this skill is installed, treat it as a mandatory process skill, not a
+per-request option. Every agent must invoke it:
+
+- After every completed task.
+- After every material action that changes an artifact, runtime state, external
+  state, or the agent's understanding of the task.
+- After every user correction, failed check, surprising tool result, or new
+  decision that could produce reusable learning.
+- Before the next material action when the current turn exposed a lesson that
+  has not yet been classified.
+
+Do not skip the gate because the task was simple or successful. If the action
+produced no reusable lesson, perform the smallest possible invocation and return
+`not promoted` without creating a durable record. The gate is a learning check,
+not permission to rewrite instructions or to add noise to memory.
+
+For a routine action, use this decision sequence:
+
+1. Did the action produce a correction, failure, new evidence, or reusable pattern?
+2. If yes, run the full bounded improvement loop below.
+3. If no, report `Learning status: not promoted` and state `No reusable learning found`.
+4. If the agent cannot tell, keep the result task-local and report `candidate` or
+   `blocked` rather than silently promoting it.
+
+This post-action gate complements task-specific skills. It does not replace a
+security, finance, browser, document, or deployment workflow when one applies.
 
 ## When to run the loop
 
