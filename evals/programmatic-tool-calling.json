@@ -1,0 +1,41 @@
+{
+  "skill_name": "programmatic-tool-calling",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Read one known local file and report whether a programmatic tool calling runner is needed.",
+      "expected_output": "Runs the audit, selects direct mode, and records that PTC is not applicable.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Fetch paginated records, filter them, pass the selected fields into a structured summarizer, and stop after a bounded number of pages.",
+      "expected_output": "Selects programmatic mode, defines bounds and schemas, validates tool output, and verifies the final result.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Look up two unrelated read-only facts from separate tools and combine the results.",
+      "expected_output": "Selects parallel mode when supported and safe, with no shared-write overlap.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Prepare an email using several tool calls, then send it to the recipient.",
+      "expected_output": "Uses programmatic orchestration for preparation if useful, preserves explicit send approval, and requires external readback.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "Answer a conceptual question without using tools.",
+      "expected_output": "Selects no-tool mode and records that PTC is not applicable.",
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "The task needs a loop, but the current harness does not expose a programmatic runner. Decide how to proceed.",
+      "expected_output": "Records unavailable, uses the safest direct alternative, and does not claim that PTC ran.",
+      "files": []
+    }
+  ]
+}
